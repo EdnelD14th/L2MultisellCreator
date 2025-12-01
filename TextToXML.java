@@ -66,7 +66,7 @@ public class TextToXML {
                 Element item = document.createElement("item");
                 root.appendChild(item);
 
-                // Get the item name and the additional name using the ID from the third column
+                // Get the item name and the additional name using the Item ID
                 String ingredientId = "57";
                 String[] ingredientItemNameInfo = itemNames.get(ingredientId);
 
@@ -160,3 +160,4 @@ public class TextToXML {
         transformer.transform(source, result);
     }
 }
+
