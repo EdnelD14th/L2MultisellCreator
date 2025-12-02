@@ -160,9 +160,6 @@ public class TextToXML {
         // Set the output properties (for example, for indentation)
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		
-		// IMPORTANT: Set XML standalone to true to avoid standalone="no"
-		document.setXmlStandalone(true);
-
         // Create a DOM source for the XML document
         DOMSource source = new DOMSource(document);
 
@@ -173,3 +170,4 @@ public class TextToXML {
         transformer.transform(source, result);
     }
 }
+
