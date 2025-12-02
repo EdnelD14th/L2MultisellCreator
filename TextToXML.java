@@ -45,12 +45,22 @@ public class TextToXML {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.newDocument();
-
+		
         // Create the root element <list> and add the necessary attributes
         Element root = document.createElement("list");
         root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
         root.setAttribute("xsi:noNamespaceSchemaLocation", "../xsd/multisell.xsd");
         document.appendChild(root);
+		
+		Element npc = document.createElement("npc");
+		root.appendChild(npc);
+		
+		Element npcId = document.createElement("npc");
+		Comment npcComment = document.createComment(" Put our NPC ID here: ");	
+		npcId.insertBefore(npcComment, npcId.getFirstChild());				
+		npcId.setTextContent("000000");
+		npc.appendChild(npcComment);
+		npc.appendChild(npcId);
 
         // Load the item names from the file namesFilePath
         Map<String, String[]> itemNames = loadItemNames(namesFilePath);
@@ -66,7 +76,7 @@ public class TextToXML {
                 Element item = document.createElement("item");
                 root.appendChild(item);
 
-                // Get the item name and the additional name using the Item ID
+                // Get the item name and the additional name using the ID from the third column
                 String ingredientId = "57";
                 String[] ingredientItemNameInfo = itemNames.get(ingredientId);
 
@@ -146,9 +156,12 @@ public class TextToXML {
         // Use Transformer to convert the document into XML
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-
+		
         // Set the output properties (for example, for indentation)
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		
+		// IMPORTANT: Set XML standalone to true to avoid standalone="no"
+		document.setXmlStandalone(true);
 
         // Create a DOM source for the XML document
         DOMSource source = new DOMSource(document);
@@ -160,4 +173,3 @@ public class TextToXML {
         transformer.transform(source, result);
     }
 }
-
