@@ -49,16 +49,16 @@ public class TextToXML {
         // Create the root element <list> and add the necessary attributes
         Element root = document.createElement("list");
         root.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-        root.setAttribute("xsi:noNamespaceSchemaLocation", "../xsd/multisell.xsd");
+        root.setAttribute("xsi:noNamespaceSchemaLocation", "../../xsd/multisell.xsd");
         document.appendChild(root);
 		
-		Element npc = document.createElement("npc");
+		Element npc = document.createElement("npcs");
 		root.appendChild(npc);
 		
 		Element npcId = document.createElement("npc");
-		Comment npcComment = document.createComment(" Put our NPC ID here: ");	
+		Comment npcComment = document.createComment(" Special Shop "); // Enter NPC Name Here
 		npcId.insertBefore(npcComment, npcId.getFirstChild());				
-		npcId.setTextContent("000000");
+		npcId.setTextContent("91000"); // Enter NPC ID Here
 		npc.appendChild(npcComment);
 		npc.appendChild(npcId);
 
@@ -76,8 +76,11 @@ public class TextToXML {
                 Element item = document.createElement("item");
                 root.appendChild(item);
 
+                String ingredientId = "57"; // Enter Ingredient ID Here "Default: 57"
+				String ingredientCount = "1000"; // Enter Ingredient Count Here
+				String productionCount = "100"; // Enter Production Count Here
+
                 // Get the item name and the additional name using the ID from the third column
-                String ingredientId = "57";
                 String[] ingredientItemNameInfo = itemNames.get(ingredientId);
 
                 if (ingredientItemNameInfo != null) {
@@ -97,12 +100,12 @@ public class TextToXML {
 
                 // Create the <ingredient> element and add it to the item
                 Element ingredient = document.createElement("ingredient");
-                ingredient.setAttribute("count", "1");  // We use a fixed value of 1 for the count
-                ingredient.setAttribute("id", "57");  // We use the third value (index 2) as the id
+                ingredient.setAttribute("count", ingredientCount);  // We use a fixed value of 1 for the count
+                ingredient.setAttribute("id", ingredientId);  // We use the third value (index 2) as the id
                 item.appendChild(ingredient);
 
                 // Get the item name and the additional name using the ID from the third column
-                String productionId = parts[2];
+                String productionId = parts[0];
                 String[] productionItemNameInfo = itemNames.get(productionId);
 
                 if (productionItemNameInfo != null) {
@@ -122,8 +125,8 @@ public class TextToXML {
 
                 // Create the <production> element and add it to the item
                 Element production = document.createElement("production");
-                production.setAttribute("count", "1");  // We use a fixed value of 1 for the count
-                production.setAttribute("id", parts[2]);  // We use the third value (index 2) as the id
+                production.setAttribute("count", productionCount);  // We use a fixed value of 1 for the count
+                production.setAttribute("id", parts[0]);  // We use the third value (index 2) as the id
                 item.appendChild(production);
             }
         } catch (IOException e) {
@@ -153,15 +156,18 @@ public class TextToXML {
 
     // Transform the XML document and save it to a file
     public static void transformToXML(Document document, String outputXMLPath) throws Exception {
+		// Set the standalone property to true to omit "standalone="no"" from the output
+		document.setXmlStandalone(true);
+
         // Use Transformer to convert the document into XML
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
-		
+
         // Set the output properties (for example, for indentation)
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		
         // Create a DOM source for the XML document
-        DOMSource source = new DOMSource(document);
+        DOMSource source = new DOMSource(document); 
 
         // Create an output result (file where the XML will be saved)
         StreamResult result = new StreamResult(new File(outputXMLPath));
@@ -170,4 +176,3 @@ public class TextToXML {
         transformer.transform(source, result);
     }
 }
-

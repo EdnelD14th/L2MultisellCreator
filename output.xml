@@ -1,12 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?><list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../xsd/multisell.xsd">
-    <npc>
-        <!-- Put our NPC ID here: -->
-        <npc>000000</npc>
-    </npc>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../xsd/multisell.xsd">
+    <npcs>
+        <!-- Special Shop -->
+        <npc>91000</npc>
+    </npcs>
     <item>
         <!-- Adena -->
-        <ingredient count="1" id="57"/>
-        <!-- Mana Potion -->
-        <production count="1" id="728"/>
+        <ingredient count="1000" id="57"/>
+        <!-- Gemstone D -->
+        <production count="100" id="2130"/>
+    </item>
+    <item>
+        <!-- Adena -->
+        <ingredient count="1000" id="57"/>
+        <!-- Gemstone C -->
+        <production count="100" id="2131"/>
+    </item>
+    <item>
+        <!-- Adena -->
+        <ingredient count="1000" id="57"/>
+        <!-- Gemstone B -->
+        <production count="100" id="2132"/>
+    </item>
+    <item>
+        <!-- Adena -->
+        <ingredient count="1000" id="57"/>
+        <!-- Gemstone A -->
+        <production count="100" id="2133"/>
+    </item>
+    <item>
+        <!-- Adena -->
+        <ingredient count="1000" id="57"/>
+        <!-- Gemstone S -->
+        <production count="100" id="2134"/>
     </item>
 </list>
